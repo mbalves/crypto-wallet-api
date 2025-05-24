@@ -1,0 +1,54 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.5'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.flywaydb.flyway' version '9.22.3'
+}
+
+group = 'org.mbalves.sp.crypto'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.flywaydb:flyway-database-postgresql'
+	implementation 'org.yaml:snakeyaml'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testRuntimeOnly 'com.h2database:h2'
+}
+
+flyway {
+	url = 'jdbc:postgresql://localhost:5432/crypto_wallet'
+	user = 'crypto'
+	password = 'crypto'
+	cleanDisabled = false
+}
+
+defaultTasks 'flywayMigrate'
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

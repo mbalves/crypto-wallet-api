@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: crypto_wallet
+  datasource:
+    url: ${CRYPTO_DB_URL:jdbc:postgresql://localhost:5432}/${CRYPTO_DB_NAME:crypto_wallet}
+    username: ${CRYPTO_DB_USER:crypto}
+    password: ${CRYPTO_DB_PASSWORD:crypto}
+
+logging:
+  level:
+    root: INFO
+
+flyway:
+  enabled: true
+  locations: classpath:db/migration
+  default-schema: ${CRYPTO_DB_NAME:crypto_wallet}
+  baseline-on-migrate: true
+
+server:
+  port: 8080
+
+crypto:
+  price-update-interval: 300000 # in milliseconds
+  pricing-api:
+    url-symbol: https://rest.coincap.io/v3/assets?search={symbol}
+    url-price: https://rest.coincap.io/v3/assets/{id}
+    url-history: https://rest.coincap.io/v3/assets/{id}/history?interval=d1&start={start}&end={end}
+    key: ${CRYPTO_PRICING_API_KEY:abcd12345}
