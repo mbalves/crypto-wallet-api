@@ -22,8 +22,8 @@ A cryptocurrency wallet management system that allows users to create wallets, a
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/swiss-post-crypto-wallet.git
-cd swiss-post-crypto-wallet
+git clone https://github.com/mbalves/crypto-wallet-api.git
+cd crypto-wallet-api
 ```
 
 2. Run the database via Docker:
